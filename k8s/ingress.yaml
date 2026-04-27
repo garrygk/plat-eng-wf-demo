@@ -5,7 +5,7 @@ metadata:
 spec:
   rules:
   - host: python-app.test.com
-  - http:
+    http:
       paths:
       - pathType: Prefix
         path: /details
