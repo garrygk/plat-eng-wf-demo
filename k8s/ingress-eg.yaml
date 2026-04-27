@@ -1,0 +1,41 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: python-app
+  labels:
+    app: python-app-label
+spec:
+  containers:
+  - image: garrykab/python-app:v2
+    name: python-app
+    ports:
+    - containerPort: 5001
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: python-app-service
+spec:
+  selector:
+    app: python-app-label
+  ports:
+  # Default port used by the image
+  - port: 8080
+    targetPort: 5001
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /details
+        backend:
+          service:
+            name: python-app-service
+            port:
+              number: 8080
+---

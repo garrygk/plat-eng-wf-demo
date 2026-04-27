@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-app-deployment
+  labels:
+    app: python-app-label
+spec:
+  replicas: 1
+    spec:
+      containers:
+      - image: garrykab/python-app:v2
+        name: python-app
+        ports:
+        - containerPort: 5001
+
